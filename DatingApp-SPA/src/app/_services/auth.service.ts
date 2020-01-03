@@ -20,7 +20,7 @@ constructor(private http: HttpClient) { }
       if (user) {
         localStorage.setItem('token', user.token);
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
-        console.log(this.decodedToken);
+        //console.log(this.decodedToken);
       }
     }));
   }
@@ -29,7 +29,7 @@ constructor(private http: HttpClient) { }
     return this.http.post(this.baseUrl + 'register', model);
   }
 
-  loggedIn(){
+  loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
