@@ -15,8 +15,10 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { MessagesComponent } from './messages/messages.component';
 import { ListsComponent } from './lists/lists.component';
-import { MemberListsComponent } from './member-lists/member-lists.component';
+import { MemberListsComponent } from './member/member-lists/member-lists.component';
 import { appRoutes } from './routes';
+import { MemberCardComponent } from './member/member-card/member-card.component';
+
 
 @NgModule({
    declarations: [
@@ -27,7 +29,9 @@ import { appRoutes } from './routes';
       RegisterComponent,
       MessagesComponent,
       ListsComponent,
-      MemberListsComponent
+      MemberListsComponent,
+      MemberListsComponent,
+      MemberCardComponent
    ],
    imports: [
       BrowserModule,

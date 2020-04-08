@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -35,11 +36,15 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
-            services.AddCors();
+            services.AddControllers().AddNewtonsoftJson( opt => {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
             //AddTransient is used as it creates new instances each time it is called 
             //whereas AddSingleton creates only one instance so it is not used for login 
-            services.AddScoped<IAuthRepository,AuthRepository>(); //one instance for each http request
+            services.AddScoped<IAuthRepository,AuthRepository>();//one instance for each http request
+            services.AddScoped<IDatingRepository,DatingRepository>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => {
                 options.TokenValidationParameters = new TokenValidationParameters
