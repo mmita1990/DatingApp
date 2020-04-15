@@ -36,14 +36,20 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc();
             services.AddControllers().AddNewtonsoftJson( opt => {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
+            
             //AddTransient is used as it creates new instances each time it is called 
             //whereas AddSingleton creates only one instance so it is not used for login 
+            services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository,AuthRepository>();//one instance for each http request
             services.AddScoped<IDatingRepository,DatingRepository>();
+            services.AddScoped<LogUserActivity>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => {
@@ -81,7 +87,7 @@ namespace DatingApp.API
           //  app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
             app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

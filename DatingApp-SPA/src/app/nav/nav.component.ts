@@ -15,10 +15,10 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
   login(){
-    this.authService.login(this.model).subscribe(next => {
-      this.alertify.success('Login successful!');
-    }, error => {
-      this.alertify.error(error);
+    this.authService.login(this.model).subscribe((next) => {
+      this.alertify.success('Login successful!');     
+    }, (err) => {
+      this.alertify.error(err);
     }, () => {
       this.router.navigate(['/members']);
     });
