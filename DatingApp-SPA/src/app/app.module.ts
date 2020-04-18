@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import {BsDropdownModule, BsDatepickerModule} from 'ngx-bootstrap';
+import {BsDropdownModule, BsDatepickerModule, PaginationModule,ButtonsModule } from 'ngx-bootstrap';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import {TimeAgoPipe} from 'time-ago-pipe';
@@ -31,6 +31,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './member/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ListsResolver } from './_resolvers/lists.resolvers';
 
 
 export function tokenGetter(){
@@ -58,6 +59,8 @@ export function tokenGetter(){
       ReactiveFormsModule,
       NgxGalleryModule,
       BrowserAnimationsModule,
+      ButtonsModule.forRoot(),
+      PaginationModule.forRoot(),
       TabsModule.forRoot(),
       BsDatepickerModule.forRoot(),
       BsDropdownModule.forRoot(),
@@ -79,7 +82,8 @@ export function tokenGetter(){
       UserService,
       MemberDetailResolver,
       MemberListResolver,
-      MemberEditResolver
+      MemberEditResolver,
+      ListsResolver
    ],
    bootstrap: [
       AppComponent

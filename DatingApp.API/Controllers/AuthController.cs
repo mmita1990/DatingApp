@@ -51,8 +51,6 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> Login (UserForloginDto userLogin)
         {
            // throw new Exception("Computer says no!!!");
-
-
             var userFromRepo = await _repo.Login(userLogin.Username.ToLower(), userLogin.Password);
             if(userFromRepo == null)
                 return Unauthorized();
@@ -75,9 +73,9 @@ namespace DatingApp.API.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescripter);
+            var user = _mapper.Map<UserForListDto>(userFromRepo);
 
-
-            return Ok(new { token = tokenHandler.WriteToken(token)});
+            return Ok(new { token = tokenHandler.WriteToken(token), user});
 
         }
     }

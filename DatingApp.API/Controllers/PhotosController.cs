@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 
 namespace DatingApp.API.Controllers
 {
-    [Authorize]
+  //  [Authorize]
     [Route("api/users/{userid}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase
@@ -25,8 +25,9 @@ namespace DatingApp.API.Controllers
         public PhotosController(IDatingRepository repo,IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _repo=repo; _mapper=mapper; _cloudinaryConfig=cloudinaryConfig;
-            Account acc = new Account( _cloudinaryConfig.Value.CloudName,_cloudinaryConfig.Value.ApiKey,
-                _cloudinaryConfig.Value.ApiSecret );
+            Account acc = new Account( _cloudinaryConfig.Value.CloudName,
+                                        _cloudinaryConfig.Value.ApiKey,
+                                        _cloudinaryConfig.Value.ApiSecret );
                 
             _cloudinary = new Cloudinary(acc);
         }
@@ -68,7 +69,8 @@ namespace DatingApp.API.Controllers
            
             if(await _repo.SaveAll()){
                  var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                return CreatedAtRoute("GetPhoto",new {id = photo.Id},photoToReturn);
+                return CreatedAtRoute("GetPhoto",new {userId = userId,id = photo.Id},photoToReturn);
+                //sending userid with the createdatroute because the default route is api/users/{userid}/photos 
             }
             return BadRequest();
             
