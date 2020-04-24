@@ -18,6 +18,7 @@ namespace DatingApp.API.Data
          Task<Message> GetMessage(int id);
          Task<PagedList<Message>> GetMessagesForUser( MessageParams messageParams);
          Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
+         Task<Photo> GetMainPhotoForUser(int userId);
 
     }
 }

@@ -140,5 +140,11 @@ namespace DatingApp.API.Data
                                 .OrderByDescending(m => m.MessageSent).ToListAsync();
             return messages;                                
         }
+
+        public async Task<Photo> GetMainPhotoForUser(int userId)
+        {
+            var photo = await _context.Photo.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
+            return photo;
+        }
     }
 }

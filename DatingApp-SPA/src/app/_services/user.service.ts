@@ -49,6 +49,13 @@ getUser(id: number): Observable<User>{
 updateUser(id: number, user: User){
   return this.http.put(this.baseUrl+'Users/'+id, user);
 }
+setMainPhoto(id: number, userId: number){
+  return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+}
+deletePhoto(id: number, userId: number){
+  return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id, {});
+}
+
 sendLike(id: number,recipientId: number){
   return this.http.post(this.baseUrl + 'Users/' + id + '/Like/' +  recipientId, {});
 }
@@ -82,4 +89,5 @@ markAsRead(userId: number, msgId: number){
   return this.http.post(this.baseUrl +'users/' + userId + '/messages/' + msgId + '/read' ,{})
           .subscribe();
 }
+
 }

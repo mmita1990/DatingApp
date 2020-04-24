@@ -11,6 +11,7 @@ import {BsDropdownModule, BsDatepickerModule, PaginationModule,ButtonsModule } f
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
@@ -34,6 +35,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { ListsResolver } from './_resolvers/lists.resolvers';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { MemberMessagesComponent } from './member/member-messages/member-messages.component';
+import { PhotoEditorComponent } from './member/photo-editor/photo-editor.component';
 
 
 export function tokenGetter(){
@@ -53,6 +55,7 @@ export function tokenGetter(){
       MemberDetailComponent,
       MemberEditComponent,
       MemberMessagesComponent,
+      PhotoEditorComponent,
       TimeAgoPipe
    ],
    imports: [
@@ -62,6 +65,7 @@ export function tokenGetter(){
       ReactiveFormsModule,
       NgxGalleryModule,
       BrowserAnimationsModule,
+      FileUploadModule,
       ButtonsModule.forRoot(),
       PaginationModule.forRoot(),
       TabsModule.forRoot(),
